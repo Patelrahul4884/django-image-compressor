@@ -1,0 +1,21 @@
+{% extends 'size_reducer/home.html' %}
+{% load static %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ imageUploadFormResult.as_p }}
+  <input class="btn btn-primary" type="submit" value="Compress" />
+</form>
+
+{% if uploadImageList %}
+{% for image in uploadImageList %}
+<ul>
+  <li>
+    <a href="{{ image.uploadedImage.url }}" download>{{ image.uploadedImage }}</a>
+    (<a href="">Delete</a>)
+  </li>
+</ul>
+{% endfor %}
+{% endif %}
+{% endblock %}

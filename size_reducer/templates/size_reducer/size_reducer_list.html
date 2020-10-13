@@ -1,0 +1,46 @@
+{% extends 'size_reducer/home.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ imageUploadFormResult|crispy }}
+    <input class="btn btn-primary" type="submit" value="Compress" />
+</form>
+
+{% if images %}
+<h2>Your compressed Images</h2>
+<table class="table mb-0">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Download</th>
+            <th>File size</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for image in images %}
+        <tr>
+            <td><a target="_blank" href="{{ image.image.url }}">
+                    <img src="{{ image.image.url }}" alt="Forest" style="width:150px">
+                </a></td>
+            <td><a class="btn btn-primary btn-sm" href="{{ image.uploadedImage.url }}" download>Download
+                    {{ image.image.name }}</a></td>
+            <td>{{ image.image.size|filesizeformat  }}</td>
+            <td>
+                <form action="{% url 'size_reducer:delete' image.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
