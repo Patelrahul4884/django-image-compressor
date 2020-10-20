@@ -6,19 +6,24 @@
 {% block content %}
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ imageUploadFormResult|crispy }}
-    <input class="btn btn-primary" type="submit" value="Compress" />
+    <div class="file-upload-wrapper">
+        <input type="file" name="myimage" accept="image/*">
+    </div>
+    <div id="myProgress">
+        <div id="myBar">0%</div>
+    </div>
+    <hr>
+    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Compress" />
 </form>
-
+<hr>
 {% if images %}
-<h2>Your compressed Images</h2>
+<h3>Your compressed Images</h3>
 <table class="table mb-0">
     <thead>
         <tr>
             <th>Image</th>
             <th>Download</th>
             <th>File size</th>
-            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -27,20 +32,26 @@
             <td><a target="_blank" href="{{ image.image.url }}">
                     <img src="{{ image.image.url }}" alt="Forest" style="width:150px">
                 </a></td>
-            <td><a class="btn btn-primary btn-sm" href="{{ image.uploadedImage.url }}" download>Download
-                    {{ image.image.name }}</a></td>
+            <td><a class="btn btn-primary btn-sm" href="{{ image.image.url }}" download>Download</a></td>
             <td>{{ image.image.size|filesizeformat  }}</td>
-            <td>
-                <form action="{% url 'size_reducer:delete' image.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">
-                        Delete
-                    </button>
-                </form>
-            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<hr>
+<div class="text-center">
+    <form action="{% url 'size_reducer:zip' %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-lg btn-block">Download All</button>
+    </form>
+</div>
+<br>
+<div class="text-center">
+    <form action="{% url 'size_reducer:delete' %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger btn-lg btn-block ">Remove All</button>
+    </form>
+</div>
+
 {% endif %}
 {% endblock %}

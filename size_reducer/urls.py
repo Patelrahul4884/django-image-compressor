@@ -4,5 +4,7 @@ from . import views
 app_name='size_reducer'
 urlpatterns = [
     path('',views.MainView.as_view(),name='all'),
-    path('<int:pk>/delete',views.ImageDelete,name='delete')
+    path('delete/',views.ImageDelete,name='delete'),
+    path('zip/',views.MakeZip,name='zip'),
+    path('demo/',views.demo_view,name='demo'),
 ]

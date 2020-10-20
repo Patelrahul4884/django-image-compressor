@@ -12,6 +12,11 @@
 
     <title>Compress JPEG!</title>
     <style>
+        body {
+            background-color: khaki;
+        }
+
+
         img {
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -22,20 +27,35 @@
         img:hover {
             box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
         }
+
+        #myProgress {
+            width: 100%;
+            background-color: grey;
+        }
+
+        #myBar {
+            width: 0%;
+            height: 30px;
+            background-color: #4CAF50;
+            text-align: center;
+            /* To center it horizontally (if you want) */
+            line-height: 30px;
+            /* To center it vertically */
+            color: white;
+        }
     </style>
 </head>
 
 <body>
-
+    <div style="text-align: center;">
+        <h1>Welcome to Django Image compression.</h1>
+    </div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10 col-md-12">
-                <div>
-                    <h1>Welcome to Image compression</h1>
-                    <p>You can reduce the size of the Image</p>
-                </div>
                 <div class="card mb-4">
                     <div class="card-body">
+                        <h3 style="text-align: center; background-color:cadetblue;">Compress Images</h3><br>
                         {% block content %}
                         {% endblock %}
                     </div>
@@ -43,181 +63,6 @@
             </div>
         </div>
 
-        <!--   <div id="drop-region" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-        <div class="drop-message">
-            Drag & Drop images or click to upload
-        </div>
-        <div id="image-preview"></div>
-    </div>
-    <script>
-        var // where files are dropped + file selector is opened
-            dropRegion = document.getElementById("drop-region"),
-            // where images are previewed
-            imagePreviewRegion = document.getElementById("image-preview");
-
-        // open file selector when clicked on the drop region
-        var fakeInput = document.createElement("input");
-        fakeInput.type = "file";
-        fakeInput.accept = "image/*";
-        fakeInput.multiple = true;
-        dropRegion.addEventListener('click', function () {
-            fakeInput.click();
-        });
-
-
-        fakeInput.addEventListener("change", function () {
-            var files = fakeInput.files;
-            handleFiles(file);
-        });
-
-        function preventDefault(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        dropRegion.addEventListener('dragenter', preventDefault, false);
-        dropRegion.addEventListener('dragleave', preventDefault, false);
-        dropRegion.addEventListener('dragover', preventDefault, false);
-        dropRegion.addEventListener('drop', preventDefault, false);
-
-
-        dropRegion.addEventListener('drop', handleDrop, false);
-        function handleFiles(files) {
-            for (var i = 0, len = files.length; i < len; i++) {
-                if (validateImage(files[i]))
-                    previewAnduploadImage(files[i]);
-            }
-        }
-        function handleDrop(e) {
-            var dt = e.dataTransfer,
-                files = dt.files;
-
-            if (files.length) {
-
-                handleFiles(files);
-
-            } else {
-
-                // check for img
-                var html = dt.getData('text/html'),
-                    match = html && /\bsrc="?([^"\s]+)"?\s*/.exec(html),
-                    url = match && match[1];
-
-
-
-                if (url) {
-                    uploadImageFromURL(url);
-                    return;
-                }
-
-            }
-
-
-            function uploadImageFromURL(url) {
-                var img = new Image;
-                var c = document.createElement("canvas");
-                var ctx = c.getContext("2d");
-
-                img.onload = function () {
-                    c.width = this.naturalWidth;     // update canvas size to match image
-                    c.height = this.naturalHeight;
-                    ctx.drawImage(this, 0, 0);       // draw in image
-                    c.toBlob(function (blob) {        // get content as PNG blob
-
-                        // call our main function
-                        handleFiles([blob]);
-
-                    }, "image/png");
-                };
-                img.onerror = function () {
-                    alert("Error in uploading");
-                }
-                img.crossOrigin = "";              // if from different origin
-                img.src = url;
-            }
-
-        }
-
-        function validateImage(image) {
-            // check the type
-            var validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-            if (validTypes.indexOf(image.type) === -1) {
-                alert("Invalid File Type");
-                return false;
-            }
-
-            // check the size
-            var maxSizeInBytes = 10e6; // 10MB
-            if (image.size > maxSizeInBytes) {
-                alert("File too large");
-                return false;
-            }
-
-            return true;
-        }
-
-
-
-        function previewAnduploadImage(image) {
-
-            // container
-            var imgView = document.createElement("div");
-            imgView.className = "image-view";
-            imagePreviewRegion.appendChild(imgView);
-
-            // previewing image
-            var img = document.createElement("img");
-            imgView.appendChild(img);
-
-            // progress overlay
-            var overlay = document.createElement("div");
-            overlay.className = "overlay";
-            imgView.appendChild(overlay);
-
-
-            // read the image...
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                img.src = e.target.result;
-            }
-            reader.readAsDataURL(image);
-
-            // create FormData
-            var formData = new FormData();
-            formData.append('image', image);
-
-            // upload the image
-            var uploadLocation = 'UPLOAD_LOCATION';
-
-            var ajax = new XMLHttpRequest();
-            ajax.open("POST", uploadLocation, true);
-
-            ajax.onreadystatechange = function (e) {
-                if (ajax.readyState === 4) {
-                    if (ajax.status === 200) {
-                        // done!
-                    } else {
-                        // error!
-                    }
-                }
-            }
-
-            ajax.upload.onprogress = function (e) {
-
-                // change progress
-                // (reduce the width of overlay)
-
-                var perc = (e.loaded / e.total * 100) || 100,
-                    width = 100 - perc;
-
-                overlay.style.width = width;
-            }
-
-            ajax.send(formData);
-
-        }
-    </script>
--->
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -229,6 +74,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
+
+        <!-- Celery Progress -->
+        <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
+        {% block progress_bar_js %}{% endblock progress_bar_js %}
 </body>
 
 </html>
