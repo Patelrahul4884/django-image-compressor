@@ -7,13 +7,10 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="file-upload-wrapper">
-        <input type="file" name="myimage" accept="image/*">
-    </div>
-    <div id="myProgress">
-        <div id="myBar">0%</div>
+        <input type="file" name="myimage" accept="image/*" required>
     </div>
     <hr>
-    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Compress" />
+    <button class="btn btn-primary btn-lg btn-block" type="submit">Compress</button>
 </form>
 <hr>
 {% if images %}
@@ -52,6 +49,8 @@
         <button class="btn btn-danger btn-lg btn-block ">Remove All</button>
     </form>
 </div>
+
+
 
 {% endif %}
 {% endblock %}

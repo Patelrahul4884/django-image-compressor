@@ -28,20 +28,8 @@
             box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
         }
 
-        #myProgress {
-            width: 100%;
-            background-color: grey;
-        }
-
-        #myBar {
-            width: 0%;
-            height: 30px;
-            background-color: #4CAF50;
-            text-align: center;
-            /* To center it horizontally (if you want) */
-            line-height: 30px;
-            /* To center it vertically */
-            color: white;
+        #progress-bar {
+            margin-top: 1em;
         }
     </style>
 </head>
@@ -74,10 +62,12 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
-
-        <!-- Celery Progress -->
-        <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
-        {% block progress_bar_js %}{% endblock progress_bar_js %}
+        <script type="text/javascript">
+            window.addEventListener('beforeunload', function (e) {
+                e.preventDefault();
+                e.returnValue = '';
+            });
+        </script>
 </body>
 
 </html>

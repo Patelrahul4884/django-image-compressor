@@ -15,7 +15,6 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
 from django.core.files.storage import FileSystemStorage
-
 # Create your views here.
 def home(request):
     return render(request,'size_reducer/home.html')

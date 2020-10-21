@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('size_reducer.urls')),
+    #path('celery-progress/',include('celery_progress.urls')),
 ]
 
 if settings.DEBUG:
