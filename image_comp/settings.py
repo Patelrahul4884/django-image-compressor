@@ -25,7 +25,7 @@ SECRET_KEY = '^4&txp$&k51t72gv%sf-yim@er#bdr%3gkvttglcapjzl7g_(j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://simpleimagecompressor.herokuapp.com/']
 
 
 # Application definition
